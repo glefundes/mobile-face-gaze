@@ -68,7 +68,6 @@ class FaceDetector(object):
 
             # collect boxes (and offsets, and scores) from different scales
             bounding_boxes = [i for i in bounding_boxes if i is not None]
-            print(len(bounding_boxes))
             if len(bounding_boxes)== 0: return [], []
             bounding_boxes = np.vstack(bounding_boxes)
 

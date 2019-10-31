@@ -17,7 +17,7 @@ parser.add_argument('--cpu', action='store_true')
 parser.add_argument('--weights','-w', type=str, default='models/weights/gazenet.pth')
 args = parser.parse_args()
 
-print('\n\nLoading MobileFaceGaze model...')
+print('Loading MobileFaceGaze model...')
 device = torch.device("cuda:0" if (torch.cuda.is_available() and not args.cpu) else "cpu")
 model = gazenet.GazeNet(device)
 
@@ -52,7 +52,7 @@ while True:
         if len(faces) != 0:
             for f, lm in zip(faces, landmarks):
                 # Confidence check
-                if(f[-1] > 0.99):
+                if(f[-1] > 0.98):
                     # Crop and normalize face Face
                     face, gaze_origin, M  = utils.normalize_face(frame, lm, frame)
                                         
@@ -61,18 +61,19 @@ while True:
                         gaze = model.get_gaze(face)
                         gaze = gaze[0].data.cpu()                              
                     
-                    # Calc FPS
-                    if (frame_num == frame_samples):
-                        fps = time.time() - fps_timer
-                        fps  = frame_samples / fps;
-                        fps_timer = time.time()
-                        frame_num = 0
 
                     # Draw results
-                    display = cv2.circle(display, gaze_origin, 3, (0, 255, 0), -1)
-                    display = cv2.putText(display, 'FPS: {:.2f}'.format(fps), (0, 20), cv2.FONT_HERSHEY_PLAIN, 1, (255, 255, 0), 1, cv2.LINE_AA)
+                    display = cv2.circle(display, gaze_origin, 3, (0, 255, 0), -1)            
                     display = utils.draw_gaze(display, gaze_origin, gaze, color=(255,0,0), thickness=2)
 
+        # Calc FPS
+        if (frame_num == frame_samples):
+            fps = time.time() - fps_timer
+            fps  = frame_samples / fps;
+            fps_timer = time.time()
+            frame_num = 0
+        display = cv2.putText(display, 'FPS: {:.2f}'.format(fps), (0, 20), cv2.FONT_HERSHEY_PLAIN, 1, (255, 255, 0), 1, cv2.LINE_AA)
+        
         cv2.imshow('Gaze Demo', cv2.cvtColor(display, cv2.COLOR_RGB2BGR))
         if cv2.waitKey(1) & 0xFF == ord('q'):
             cv2.destroyAllWindows()
@@ -85,7 +86,7 @@ while True:
         traceback.print_exception(exc_type, exc_value, exc_traceback,
                               limit=2, file=sys.stdout)
         break
-        
+
 cap.release()
 cv2.destroyAllWindows()
 
