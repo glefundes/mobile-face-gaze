@@ -34,7 +34,7 @@ def compute_angle_error(preds, labels):
     return torch.acos(angles) * 180 / np.pi
 
 
-def normalize_face(bbox, landmarks, frame):
+def normalize_face(landmarks, frame):
     # Adapted from imutils package
     left_eye_coord=(0.70, 0.35)
     

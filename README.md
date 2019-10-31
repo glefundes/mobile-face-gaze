@@ -10,20 +10,24 @@ CNN-based gaze estimation in the wild.
 
 ## Table of Contents
 1. [ Introduction. ](#intro)
-4. [ Implementation Details. ](#impl)
-2. [ Installation. ](#install)
-3. [ Usage. ](#usage)
+2. [ Implementation Details. ](#impl)
+    1. [Quick Start. ](#quick)
+3. [ Installation. ](#install)
+4. [ Usage. ](#usage)
     1. [ Running the Demo. ](#demo)
     2. [ Training from scratch. ](#train)  
-4. [ References. ](#references)
-5. [ TODO. ](#todo)
+5. [ References. ](#references)
+6. [ TODO. ](#todo)
 <hr>
-<a name="intro"></a>
 
+<a name="intro"></a>
 ### Introduction:
 This is a lightweight version of the MPIIFaceGaze CNN architecture for gaze estimation in the wild. The original code and weights
-were made available for the Caffe framework, so I decided to reimplement it in PyTorch. As a bonus, I made changes so that the model would be smaller without
-suffering from too much loss of performance. 
+were made available for the Caffe framework, so I decided to reimplement it in PyTorch. As a bonus, I made changes so that the model would be smaller without suffering from too much loss of performance. 
+
+<a name="quick"></a>
+#### Quick Start:
+Checkout the [Step-by-Step tutorial notebook](https://github.com/glefundes/Mobile-Face-Gaze/blob/master/step-by-step.ipynb) for a clear view of each step in the processing pipeline! :)
 
 <a name="impl"></a>
 ### Implementation Details:
@@ -32,12 +36,12 @@ This is just not feasible for me (I'm still not entirely convinced I didn't scre
 enough without huge impacts on performance.
 Below is a table of the changes made in order to reduce the model to the final **17.7MB** achieved.
 
-|          | Backbone     | Size of feat. vector | Input resolution | # of Params. |
-|----------|--------------|----------------------|------------------|--------------|
-| Original | AlexNet      | 4096                 | 448x448          | 196.60M      |
-| Modified | MobileNetV2* | 512                  | 112x112          | 4.39M        |
+|           | Backbone     | Size of feat. vector | Input resolution | # of Params. |
+|-----------|--------------|----------------------|------------------|--------------|
+| Original  | AlexNet      | 4096                 | 448x448          | 196.60M      |
+| This Repo | MobileNetV2* | 512                  | 112x112          | 4.39M        |
 
-*[I also changed MobileNetV2's final convolution layer's output to 256](https://github.com/glefundes/mobile-facegaze/blob/bcbf6de7cffe62124897aa08768f00cc2755c039/models/gazenet.py#L23)
+*[I also changed MobileNetV2's final convolution layer's output to 256](https://github.com/glefundes/mobile-facegaze/blob/bcbf6de7cffe62124897aa08768f00cc2755c039/models/gazenet.py#L23).
 
 Quantitative evaluation by LOOCV on the MPIIFaceGaze dataset revealed no more than 1 degree increase in Mean Average Error when compared to my reimplementation of the original.
 Qualitative evaluation on images in the wild and webcam tests show results to be satisfactory.
@@ -100,9 +104,11 @@ Weights pre-trained on a GTX Titan X are located in the `models/weights` folder.
   ~$ python3 train.py
   ```
   If you want to change learning rates, batch size, etc. please refer to the training script's accepted arguments by running it with the `-h` flag.
-  The provided script will train the model on all 15 subjects present in the dataset. For simplicity's sake I did not include the LOOCV training routine.
+  The provided script will train the model on all 15 subjects present in the dataset (see figure below). For simplicity's sake I did not include the LOOCV training routine.
   if you wish to validate your model for comparison, you must modify the script and data loader as to train a model for each set of 14 subjects while computing the error on the 15th.
   The MAE will be the mean of all 15 angle errors.
+
+  ![train plot](imgs/training_plot.png)
 
 ### References:
 ```
@@ -117,7 +123,7 @@ Weights pre-trained on a GTX Titan X are located in the `models/weights` folder.
 
 <a name="todo"></a>
 #### TODO:
-* Notebook guide for step-by-step execution 
+* ~~Notebook guide for step-by-step execution~~
 * Better adaptation of MTCNN for modern pytorch (the original was from 0.2!)
 * More pictures and gifs!
 * Smooth angles post-processing by tracking and filtering 

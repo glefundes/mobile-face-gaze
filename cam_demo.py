@@ -54,7 +54,7 @@ while True:
                 # Confidence check
                 if(f[-1] > 0.98):
                     # Crop and normalize face Face
-                    face, gaze_origin, M  = utils.normalize_face(frame, lm, frame)
+                    face, gaze_origin, M  = utils.normalize_face(lm, frame)
                                         
                     # Predict gaze
                     with torch.no_grad():

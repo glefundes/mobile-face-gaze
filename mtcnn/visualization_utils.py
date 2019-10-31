@@ -14,18 +14,19 @@ def show_bboxes(img, bounding_boxes, facial_landmarks=[]):
     """
 
     img_copy = img.copy()
-    draw = ImageDraw.Draw(img_copy)
+    draw = ImageDraw.ImageDraw(img_copy)
 
     for b in bounding_boxes:
         draw.rectangle([
             (b[0], b[1]), (b[2], b[3])
-        ], outline='white')
+        ], outline='red', width=1)
 
+    offset = 1.0
     for p in facial_landmarks:
         for i in range(5):
             draw.ellipse([
-                (p[i] - 1.0, p[i + 5] - 1.0),
-                (p[i] + 1.0, p[i + 5] + 1.0)
-            ], outline='blue')
+                (p[i] - offset, p[i + 5] - offset),
+                (p[i] + offset, p[i + 5] + offset)
+            ], outline='red', fill='red')
 
     return img_copy
