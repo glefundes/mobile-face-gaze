@@ -14,7 +14,7 @@ from mtcnn import FaceDetector
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--cpu', action='store_true')
-parser.add_argument('--weights','-w', type=str, default='./weights/weights.pth')
+parser.add_argument('--weights','-w', type=str, default='models/weights/gazenet.pth')
 args = parser.parse_args()
 
 print('\n\nLoading MobileFaceGaze model...')

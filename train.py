@@ -5,7 +5,7 @@ import torch
 import argparse
 import torch.nn as nn
 from models import gazenet
-from dataloader import get_loader
+from mpiifacegaze_dataset.dataloader import get_loader
 
 torch.backends.cudnn.benchmark = True
 torch.backends.cudnn.enabled = True
@@ -40,7 +40,8 @@ with open(args.log_path, 'w') as f:
 loss_fn = nn.L1Loss(reduction='mean')
 
 # Model instance, optimizer and LR Scheduler
-model = gazenet.GazeNet().cuda().train()
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+model = gazenet.GazeNet(device=device).train()
 optimizer = torch.optim.SGD(
         model.parameters(),
         lr=args.learning_rate,
