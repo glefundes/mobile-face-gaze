@@ -1,0 +1,9 @@
+h5py
+wget
+torch
+numpy
+Pillow
+matplotlib
+torchvision
+python-dateutil
+opencv-contrib-python
