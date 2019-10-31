@@ -54,7 +54,6 @@ scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[4, 8], g
 # Dataset
 train_loader = get_loader(args.dataset, args.batch_size)
 
-
 #Training Loop
 start_time = time.time() 
 print('Training started at {}'.format(time.strftime("%a, %d %b %Y %H:%M:%S ", time.gmtime())))
