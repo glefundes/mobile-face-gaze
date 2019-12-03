@@ -93,4 +93,4 @@ for epoch in range(args.epochs):
     print('Elapsed {:.2f} min'.format(elapsed/60))
     print('===================================')
     torch.save(model.state_dict(), os.path.join(args.output, 'model-{}.pth'.format(epoch)))
-
+    scheduler.step(epoch)

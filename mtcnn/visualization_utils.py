@@ -1,7 +1,7 @@
 from PIL import ImageDraw
 
 
-def show_bboxes(img, bounding_boxes, facial_landmarks=[]):
+def show_bboxes(img, bounding_boxes, facial_landmarks=[], width=2, eyeline=False):
     """Draw bounding boxes and facial landmarks.
 
     Arguments:
@@ -19,14 +19,17 @@ def show_bboxes(img, bounding_boxes, facial_landmarks=[]):
     for b in bounding_boxes:
         draw.rectangle([
             (b[0], b[1]), (b[2], b[3])
-        ], outline='red', width=1)
+        ], outline='red', width=width)
 
-    offset = 1.0
+    offset = 1.0*width
     for p in facial_landmarks:
         for i in range(5):
             draw.ellipse([
                 (p[i] - offset, p[i + 5] - offset),
                 (p[i] + offset, p[i + 5] + offset)
             ], outline='red', fill='red')
+
+        if (eyeline):
+            draw.line(tuple([p[0],p[5], p[1],p[6]]), width=width, fill='blue')
 
     return img_copy

@@ -47,7 +47,7 @@ def normalize_face(landmarks, frame):
     dY = rcenter[1] - lcenter[1]
     dX = rcenter[0] - lcenter[0]
     angle = np.degrees(np.arctan2(dY, dX)) - 180
-
+    
     # compute the desired right eye x-coordinate based on the
     # desired x-coordinate of the left eye
     right_eye_x = 1.0 - left_eye_coord[0]

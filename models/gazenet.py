@@ -65,9 +65,9 @@ class GazeNet(nn.Module):
         x = x.view(x.size(0), -1)
         x = self.fc1(x)
         x = self.fc2(x)
-        x = self.fc_final(x)
+        gaze = self.fc_final(x)
 
-        return x
+        return gaze
 
     def get_gaze(self, img):
         img = Image.fromarray(img)
