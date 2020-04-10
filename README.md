@@ -1,4 +1,6 @@
 # Mobile FaceGaze
+[![GitHub forks](https://img.shields.io/github/forks/glefundes/Mobile-Face-Gaze?style=social&label=Fork&maxAge=2592000)](https://github.com/glefundes/Mobile-Face-Gaze/)
+[![GitHub stars](https://img.shields.io/github/stars/glefundes/Mobile-Face-Gaze?style=social&label=Star&maxAge=2592000)](https://github.com/glefundes/Mobile-Face-Gaze/)
 
 Pytorch implementarion of a modified version of the MPIIFaceGaze architecture presented in the paper 
 [It's Written All Over Your Face: Full-Face Appearance-Based Gaze Estimation](http://openaccess.thecvf.com/content_cvpr_2017_workshops/w41/html/Bulling_Its_Written_All_CVPR_2017_paper.html) for
