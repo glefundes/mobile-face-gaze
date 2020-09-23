@@ -110,7 +110,7 @@ Weights pre-trained on a GTX Titan X are located in the `models/weights` folder.
   if you wish to validate your model for comparison, you must modify the script and data loader as to train a model for each set of 14 subjects while computing the error on the 15th.
   The MAE will be the mean of all 15 angle errors.
 
-  ![train plot](imgs/training_plot.png)
+  
 
 ### References:
 ```
